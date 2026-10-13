@@ -1,0 +1,38 @@
+
+@model IEnumerable<FeedbackManagement.Models.Feedback>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Rating</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Category</td>
+                        <td>@item.Rating / 5</td>
+                        <td>@item.Comments</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        No feedback submitted yet.
+    </div>
+}
