@@ -1,0 +1,107 @@
+
+@model FeedbackManagement.Models.Feedback
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Submit Feedback";
+}
+
+<div class="card shadow-sm p-4">
+    <h2>Submit Your Feedback</h2>
+    <p class="text-muted">We value your suggestions and opinions.</p>
+
+    @using (Html.BeginForm("Create", "Feedback", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(false, "",
+            new { @class = "text-danger mb-3" })
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Name, "Full Name",
+                new { @class = "form-label fw-bold" })
+
+            @Html.TextBoxFor(m => m.Name,
+                new { @class = "form-control", placeholder = "Enter full name" })
+
+            @Html.ValidationMessageFor(m => m.Name, "",
+                new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Email, "Email Address",
+                new { @class = "form-label fw-bold" })
+
+            @Html.TextBoxFor(m => m.Email,
+                new { @class = "form-control", type = "email",
+                      placeholder = "example@email.com" })
+
+            @Html.ValidationMessageFor(m => m.Email, "",
+                new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Category, "Category",
+                new { @class = "form-label fw-bold" })
+
+            @Html.DropDownListFor(m => m.Category,
+                new List<SelectListItem>
+                {
+                    new() { Text = "Suggestion", Value = "Suggestion" },
+                    new() { Text = "Complaint", Value = "Complaint" },
+                    new() { Text = "Appreciation", Value = "Appreciation" },
+                    new() { Text = "Other", Value = "Other" }
+                },
+                "-- Select Category --",
+                new { @class = "form-select" })
+
+            @Html.ValidationMessageFor(m => m.Category, "",
+                new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Rating, "Rating",
+                new { @class = "form-label fw-bold" })
+
+            @Html.DropDownListFor(m => m.Rating,
+                new List<SelectListItem>
+                {
+                    new() { Text = "1 - Poor", Value = "1" },
+                    new() { Text = "2 - Fair", Value = "2" },
+                    new() { Text = "3 - Good", Value = "3" },
+                    new() { Text = "4 - Very Good", Value = "4" },
+                    new() { Text = "5 - Excellent", Value = "5" }
+                },
+                "-- Select Rating --",
+                new { @class = "form-select" })
+
+            @Html.ValidationMessageFor(m => m.Rating, "",
+                new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-4">
+            @Html.LabelFor(m => m.Comments, "Comments",
+                new { @class = "form-label fw-bold" })
+
+            @Html.TextAreaFor(m => m.Comments, 4, 50,
+                new { @class = "form-control",
+                      placeholder = "Write your feedback here..." })
+
+            @Html.ValidationMessageFor(m => m.Comments, "",
+                new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Submit Feedback
+        </button>
+
+        <a asp-action="Index" class="btn btn-outline-secondary ms-2">
+            Cancel
+        </a>
+    }
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
