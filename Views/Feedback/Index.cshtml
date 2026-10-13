@@ -1,0 +1,30 @@
+
+@model IEnumerable<FeedbackManagement.Models.Feedback>
+
+@{
+    ViewData["Title"] = "Feedback Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>Feedback Dashboard</h2>
+        <p class="text-muted">View submitted feedback.</p>
+    </div>
+
+    <a asp-action="Create" class="btn btn-primary">
+        + Add Feedback
+    </a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<div class="card shadow-sm p-3">
+    <h5>Submitted Feedback</h5>
+
+    <partial name="_FeedbackList" model="Model" />
+</div>
